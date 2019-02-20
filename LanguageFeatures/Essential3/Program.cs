@@ -13,10 +13,11 @@ namespace Essential3
         }
         // * Not an ideal approach * lambda is preferable
         // for being sent to 'Filter' extension method
-        static Func<Flight, bool> IsOriginTehranDelegate = delegate (Flight f)
+        static Func<Flight, bool> IsOriginTehranDelegate1 = delegate (Flight f)
         {
             return (f?.From ?? "<No Where>") == "Tehran";
         };
+        static Func<Flight, bool> IsOriginTehranDelegate2 = (Flight f) => (f?.From ?? "<No Where>") == "Tehran";
         static void Main(string[] args)
         {
             Airport a = new Airport {
@@ -35,7 +36,8 @@ namespace Essential3
 
             // below approaches are not ideal
             Console.WriteLine($"Total Passengers (Origin == \"Tehran\") using method: {a.Filter(IsOriginTehranMethod).TotalPassengers()}");
-            Console.WriteLine($"Total Passengers (Origin == \"Tehran\") using func: {a.Filter(IsOriginTehranDelegate).TotalPassengers()}");
+            Console.WriteLine($"Total Passengers (Origin == \"Tehran\") using func: {a.Filter(IsOriginTehranDelegate1).TotalPassengers()}");
+            Console.WriteLine($"Total Passengers (Origin == \"Tehran\") using func: {a.Filter(IsOriginTehranDelegate2).TotalPassengers()}");
         }
     }
 }
